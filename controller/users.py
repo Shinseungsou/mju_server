@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, Response
 import json
 
 # from config.mjudb import mjudb
@@ -36,20 +36,22 @@ def signin():
     cursor = db.connect().cursor()
     pw = request.args.get('pw')
     id = request.args.get('id')
+    if len(pw) < 1 or len(id) < 1:
+        return Response('{"result":false}', status=400, mimetype='application/json')
     cursor.execute("select username, id, gender, nickname from users where id="+id+" and pw="+pw)
     if cursor.rowcount < 1 :
-        return "{'result':'false'}"
+        return '{"result":false}'
         pass
     result = []
     columns = tuple([d[0] for d in cursor.description])
     rows = tuple([d[0] for d in cursor])
     d = dict(zip(columns, rows))
-    d["result"] = cursor.rowcount > 0
+    d["result"] = True
     result.append(d)
 
     print result
 
-    return json.dumps(result)
+    return Response(json.dumps(result), mimetype='application/json')
 
 @users.route("/signup", methods=["POST"])
 def signup():
