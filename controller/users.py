@@ -5,7 +5,7 @@ from controller import db
 
 users = Blueprint('users', __name__, url_prefix="/users")
 
-@users.route("/")
+@users.route("/", methods=["GET"])
 def users_index():
     return "{\"user\":{\"name\":\"Shin\",\"age\":\"24\"}}"
 
