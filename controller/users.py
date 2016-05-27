@@ -10,8 +10,7 @@ users = Blueprint('users', __name__, url_prefix="/users")
 def users_index():
     return "{\"user\":{\"name\":\"Shin\",\"age\":\"24\"}}"
 
-@users.route("/signin")
-def signin():
+def userlist():
     # mjudbs = mjudb().setDB(current_app).getDB()
     cursor = db.connect().cursor()
     cursor.execute("select * from users")
@@ -20,6 +19,33 @@ def signin():
 
     for row in cursor:
         result.append(dict(zip(columns, row)))
+
+    print result
+
+    return json.dumps(result)
+
+def simplereturn(result):
+    if result :
+        return '"result":true'
+    else :
+        return "'result':false"
+
+@users.route("/signin", methods=["POST"])
+def signin():
+    # mjudbs = mjudb().setDB(current_app).getDB()
+    cursor = db.connect().cursor()
+    pw = request.args.get('pw')
+    id = request.args.get('id')
+    cursor.execute("select username, id, gender, nickname from users where id="+id+" and pw="+pw)
+    if cursor.rowcount < 1 :
+        return "{'result':'false'}"
+        pass
+    result = []
+    columns = tuple([d[0] for d in cursor.description])
+    rows = tuple([d[0] for d in cursor])
+    d = dict(zip(columns, rows))
+    d["result"] = cursor.rowcount > 0
+    result.append(d)
 
     print result
 
@@ -51,6 +77,6 @@ def signup():
     cursor.execute(query)
     connection.commit()
 
-    return '{"result":"success"}'
+    return '{"result":"true"}'
     # else:
     #     return '"result":"fail"'
