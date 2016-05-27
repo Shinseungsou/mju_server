@@ -51,6 +51,6 @@ def signup():
     cursor.execute(query)
     connection.commit()
 
-    return '"result":"success"'
+    return '{"result":"success"}'
     # else:
     #     return '"result":"fail"'
