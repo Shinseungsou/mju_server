@@ -1,4 +1,3 @@
-import mysql
 from flaskext.mysql import MySQL
 
 class mjudb:
