@@ -46,7 +46,7 @@ def signin():
     columns = tuple([d[0] for d in cursor.description])
     rows = tuple([d[0] for d in cursor])
     d = dict(zip(columns, rows))
-    d["result"] = True
+    d["result"] = 'true'
     result.append(d)
 
     print result
@@ -82,3 +82,23 @@ def signup():
     return '{"result":"true"}'
     # else:
     #     return '"result":"fail"'
+
+@users.route("/profile", methods=["GET"])
+def profile():
+    # if(request.method == 'POST'):
+    username = request.args.get('id')
+    print "hello"
+    # pw = request.form['pw']
+    # id = request.form['id']
+    # pn = request.form['pn']
+    # nickname = request.form['nick']
+    # email = request.form['email']
+
+    connection = db.connect()
+    cursor = connection.cursor()
+    query = "select * from users where id = "+id
+
+    cursor.execute(query)
+    connection.commit()
+
+    return '{"result":"true"}'
