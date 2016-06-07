@@ -82,3 +82,23 @@ def signup():
     return '{"result":"true"}'
     # else:
     #     return '"result":"fail"'
+
+@users.route("/profile", methods=["GET"])
+def profile():
+    # if(request.method == 'POST'):
+    username = request.args.get('id')
+    print "hello"
+    # pw = request.form['pw']
+    # id = request.form['id']
+    # pn = request.form['pn']
+    # nickname = request.form['nick']
+    # email = request.form['email']
+
+    connection = db.connect()
+    cursor = connection.cursor()
+    query = "select * from users where id = "+id
+
+    cursor.execute(query)
+    connection.commit()
+
+    return '{"result":"true"}'
