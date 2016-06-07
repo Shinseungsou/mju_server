@@ -46,7 +46,7 @@ def signin():
     columns = tuple([d[0] for d in cursor.description])
     rows = tuple([d[0] for d in cursor])
     d = dict(zip(columns, rows))
-    d["result"] = True
+    d["result"] = 'true'
     result.append(d)
 
     print result
