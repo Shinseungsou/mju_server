@@ -40,14 +40,15 @@ def signin():
         return Response('{"result":false}', status=400, mimetype='application/json')
     cursor.execute("select username, id, gender, nickname from users where id="+id+" and pw="+pw)
     if cursor.rowcount < 1 :
-        return '{"result":false}'
-        pass
-    result = []
+        return '{"result":"false"}'
+
+    result = dict()
     columns = tuple([d[0] for d in cursor.description])
     rows = tuple([d[0] for d in cursor])
     d = dict(zip(columns, rows))
-    d["result"] = True
-    result.append(d)
+    result["result"] = 'true'
+    result["user"] = d
+#    result.append(d)
 
     print result
 
