@@ -108,14 +108,17 @@ def getmessage():
     # d = dict(zip(columns, rows))
     d = dict()
     result['messages'] = []
+    data = cursor.fetchall()
+    desc = cursor.description
 
-    for (uid, from_id, to_id, from_type, contents, messagetype) in cursor:
-        d['uid'] = uid
-        d['from_id'] = from_id
-        d['to_id'] = to_id
-        d['from_type'] = from_type
-        d['contents'] = contents
-        d['messagetype'] = messagetype
-        result['messages'].append([d])
+    for (uid, from_id, to_id, from_type, contents, messagetype) in data:
+        # d['uid'] = uid
+        # d['from_id'] = from_id
+        # d['to_id'] = to_id
+        # d['from_type'] = from_type
+        # d['contents'] = contents
+        # d['messagetype'] = messagetype
+        # result['messages'].append(d)
+        result['messages'] = desc
 
     return Response(json.dumps(result), mimetype='application/json')
