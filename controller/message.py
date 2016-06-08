@@ -107,7 +107,6 @@ def getmessage():
     columns = tuple([d[0] for d in cursor.description])
     # rows = tuple([d[0] for d in cursor])
     # d = dict(zip(columns, rows))
-<<<<<<< HEAD
 #    d = dict()
  #   result['messages'] = []
 #    data = cursor.fetchall()
@@ -122,7 +121,6 @@ def getmessage():
         # d['messagetype'] = messagetype
         # result['messages'].append(d)
 #        result['messages'] = desc
-=======
     d = dict()
     result['messages'] = []
     data = cursor.fetchall()
@@ -131,6 +129,5 @@ def getmessage():
         for num in range(len(rows)):
             d[columns[num]] = rows[num]
         result['messages'].append(d)
->>>>>>> 3d0f6b3cef0fe437e9813644d852cf7f7f122406
 
 #    return Response(json.dumps(result), mimetype='application/json')
