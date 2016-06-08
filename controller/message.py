@@ -6,7 +6,7 @@ from controller import db
 
 message = Blueprint('message', __name__, url_prefix="/message")
 
-@users.route("/", methods=["GET"])
+@message.route("/", methods=["GET"])
 def get_message():
     return "{\"user\":{\"name\":\"Shin\",\"age\":\"24\"}}"
 
@@ -30,7 +30,7 @@ def simplereturn(result):
     else :
         return "'result':false"
 
-@users.route("/signin", methods=["POST"])
+@message.route("/signin", methods=["POST"])
 def signin():
     # mjudbs = mjudb().setDB(current_app).getDB()
     cursor = db.connect().cursor()
@@ -56,7 +56,7 @@ def signin():
 
     return Response(json.dumps(result), mimetype='application/json')
 
-@users.route("/signup", methods=["POST"])
+@message.route("/signup", methods=["POST"])
 def signup():
     # if(request.method == 'POST'):
     username = request.args.get('username')
@@ -86,7 +86,7 @@ def signup():
     # else:
     #     return '"result":"fail"'
 
-@users.route("/list", methods=["GET"])
+@message.route("/list", methods=["GET"])
 def getmessage():
     user_id = request.args.get('id')
     print "hello"
