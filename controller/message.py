@@ -93,10 +93,19 @@ def getmessage():
 
     connection = db.connect()
     cursor = connection.cursor()
-    query = "select * from user where id = "+user_id
-
+    query = "select * from messages where to_id = "+user_id
     cursor.execute(query)
     connection.commit()
 
-    return '{"result":"true"}'
+    result = dict()
+    if cursor.rowcount < 1:
+        result['result'] = "false"
+    else:
+        result['result'] = "true"
 
+    columns = tuple([d[0] for d in cursor.description])
+    rows = tuple([d[0] for d in cursor])
+    d = dict(zip(columns, rows))
+    result['messages'] = d
+
+    return Response(json.dumps(result), mimetype='application/json')
