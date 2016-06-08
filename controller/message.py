@@ -102,7 +102,6 @@ def getmessage():
         result['result'] = "false"
     else:
         result['result'] = "true"
-    return Response(json.dump(result))
 
     columns = tuple([d[0] for d in cursor.description])
     # rows = tuple([d[0] for d in cursor])
@@ -130,4 +129,4 @@ def getmessage():
             d[columns[num]] = rows[num]
         result['messages'].append(d)
 
-#    return Response(json.dumps(result), mimetype='application/json')
+    return Response(json.dumps(result), mimetype='application/json')
