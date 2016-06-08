@@ -103,9 +103,19 @@ def getmessage():
     else:
         result['result'] = "true"
 
-    columns = tuple([d[0] for d in cursor.description])
-    rows = tuple([d[0] for d in cursor])
-    d = dict(zip(columns, rows))
-    result['messages'] = d
+    # columns = tuple([d[0] for d in cursor.description])
+    # rows = tuple([d[0] for d in cursor])
+    # d = dict(zip(columns, rows))
+    d = dict()
+    result['messages'] = []
+
+    for (uid, from_id, to_id, from_type, contents, messagetype) in cursor:
+        d['uid'] = uid
+        d['from_id'] = from_id
+        d['to_id'] = to_id
+        d['from_type'] = from_type
+        d['contents'] = contents
+        d['messagetype'] = messagetype
+        result['messages'].append([d])
 
     return Response(json.dumps(result), mimetype='application/json')
