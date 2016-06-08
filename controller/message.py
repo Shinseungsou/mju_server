@@ -4,7 +4,7 @@ import json
 # from config.mjudb import mjudb
 from controller import db
 
-users = Blueprint('message', __name__, url_prefix="/message")
+message = Blueprint('message', __name__, url_prefix="/message")
 
 @users.route("/", methods=["GET"])
 def get_message():
