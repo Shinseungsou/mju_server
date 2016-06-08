@@ -116,6 +116,6 @@ def getmessage():
         d['from_type'] = from_type
         d['contents'] = contents
         d['messagetype'] = messagetype
-        result['messages'].append([d])
+        result['messages'].append(d)
 
     return Response(json.dumps(result), mimetype='application/json')
