@@ -38,21 +38,32 @@ def signin():
     id = request.args.get('id')
     if len(pw) < 1 or len(id) < 1:
         return Response('{"result":false}', status=400, mimetype='application/json')
-    cursor.execute("select username, id, gender, nickname from users where id="+id+" and pw="+pw)
+    cursor.execute("select username, uid, id, gender, nickname from users where id="+id+" and pw="+pw)
     if cursor.rowcount < 1 :
         return '{"result":"false"}'
 
     result = dict()
     columns = tuple([d[0] for d in cursor.description])
-    rows = tuple([d[0] for d in cursor])
-    d = dict(zip(columns, rows))
-    result["result"] = 'true'
-    result["user"] = d
 #    result.append(d)
     #d["result"] = 'true'
     #result.append(d)
 
-    print result
+    data = cursor.fetchone()
+    print columns
+    print type(data[0]), type(columns[0])
+
+    d = dict()
+    # for rows in data:
+    #     for num in range(len(rows)):
+    #         print rows[num], columns[num]
+    #         d[columns[num]] \
+    #             = rows[num]
+    for num in range(len(data)):
+        print columns[num], data[num]
+        d[columns[num]] = data[num]
+
+    result["result"] = 'true'
+    result["user"] = d
 
     return Response(json.dumps(result), mimetype='application/json')
 
