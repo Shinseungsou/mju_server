@@ -65,6 +65,7 @@ def signin():
     result["result"] = 'true'
     result["user"] = d
 
+    cursor.close()
     return Response(json.dumps(result), mimetype='application/json')
 
 @users.route("/signup", methods=["POST"])

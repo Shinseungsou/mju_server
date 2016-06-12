@@ -8,4 +8,4 @@ from controller import path
 # row['k'] = '4'
 #
 # print al, row
-print path.getSquare(37.2, 127.0, 37.5, 127.33)
+print path.getSquare(37.200034, 127.009823, 37.555483, 127.332287)

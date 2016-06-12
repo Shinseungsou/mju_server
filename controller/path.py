@@ -4,7 +4,6 @@ import json
 # from config.mjudb import mjudb
 from controller import db
 from datetime import datetime
-from pytz import timezone
 import math
 
 path = Blueprint('path', __name__, url_prefix="/path")
@@ -90,6 +89,7 @@ def getweight(cpath_car, cpath_walker):
     weight += get_tri_weight(cpath_walker.to_lat - min(cpath_car.from_lat, cpath_car.to_lat), cpath_walker.to_lon - min(cpath_car.from_lon, cpath_car.to_lon), tri_lat, tri_lon, getdirection(cpath_car))
     return weight * cos + weight
 
+
 def getSquare(from_lat, from_lon, to_lat, to_lon):
     path1 = cpath(from_lat, from_lon, to_lat, to_lon)
     connection = db.connect()
@@ -134,11 +134,11 @@ def register():
     to_lon = request.args.get('to_lon')
     carpooler_type = request.args.get('carpooler_type')
     # date_time = datetime.now(tz=timezone('Asia/Tokyo')).strftime("%Y-%m-%d %H:%M:%S")
-    route = request.args.get('route')
+    route = request.data
+    print len(route), type(route), route
     date_time = request.args.get('date_time')
     duration = request.args.get('duration')
-    print "hello"
-    print user_id, from_lat, from_lon, to_lat,to_lon,carpooler_type,datetime,duration
+    # print user_id, from_lat, from_lon, to_lat,to_lon,carpooler_type,datetime,duration
 
     connection = db.connect()
     cursor = connection.cursor()
@@ -148,6 +148,8 @@ def register():
 
     cursor.execute(query)
     connection.commit()
+    connection.close()
+    cursor.close()
 
     return '{"result":"true"}'
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, Response
 import json
-from datetime import datetime
+from datetime import datetime, tzinfo
 from pytz import timezone
 
 # from config.mjudb import mjudb
@@ -59,4 +59,6 @@ def getmessage():
             d[columns[num]] = rows[num]
         result['messages'].append(d)
 
+    connection.close()
+    cursor.close()
     return Response(json.dumps(result), mimetype='application/json')
