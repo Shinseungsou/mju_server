@@ -1,7 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 index = Blueprint('index', __name__, url_prefix="/")
 
 @index.route("/")
 def index_index():
-    return "{\"user\":{\"name\":\"Shin\",\"age\":\"26\"}}"
+    return render_template("index.html")
